@@ -1,12 +1,12 @@
 var canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d")
+    ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var dots = [],
     FPS = 60,
-    dotsNum = 10,
+    dotsNum = 50,
     dotSpeed = 50
     mouse = {
         x: 0,
@@ -40,7 +40,39 @@ function draw() {
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.radius, 0, 2 * Math.PI)
         ctx.fill();
+        ctx.fillStyle = 'black';
+        ctx.stroke();
     }
+
+    ctx.beginPath();
+    for (var i = 0; i < dots.length; i++) {
+        var dotI = dots[i];
+        ctx.moveTo(dotI.x, dotI.y);
+        if (distance(mouse, dotI) < 150) ctx.lineTo(mouse.x, mouse.y);
+        for (var j = 0; j < dots.length; j++) {
+            var dotII = dots[j];
+            if (distance(dotI, dotII) < 150) {
+                ctx.lineTo(dotII.x, dotII.y);
+            }
+        }
+    }
+
+    ctx.lineWidth = 0.1;
+    ctx.strokeStyle = "white";
+    ctx.stroke();
+}
+
+function distance( point1, point2 ) {
+    var xs = 0;
+    var ys = 0;
+
+    xs = point2.x - point1.x;
+    xs = xs * xs;
+
+    ys = point2.y - point1.y;
+    ys = ys * ys;
+    
+    return Math.sqrt(xs + ys)
 }
 
 // Move dots
@@ -56,6 +88,10 @@ function update() {
     }
 }
 
+canvas.addEventListener('mousemove', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
 
 function tick() {
     draw();
@@ -64,4 +100,4 @@ function tick() {
 }
 
 tick()
-console.log(dots)
+// console.log(dots)
