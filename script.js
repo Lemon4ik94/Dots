@@ -51,14 +51,14 @@ function draw() {
         if (distance(mouse, dotI) < 150) ctx.lineTo(mouse.x, mouse.y);
         for (var j = 0; j < dots.length; j++) {
             var dotII = dots[j];
-            if (distance(dotI, dotII) < 150) {
+            if (distance(dotI, dotII) < 150 && distance(dotI, dotII) != 0) {
                 ctx.lineTo(dotII.x, dotII.y);
             }
         }
     }
 
-    ctx.lineWidth = 0.1;
-    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#303";
     ctx.stroke();
 }
 
