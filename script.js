@@ -7,8 +7,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var dots = [],
-    FPS = 60,
-    dotsNum = 50,
+    FPS = 25,
+    dotsNum = 2,
     dotSpeed = 50
     mouse = {
         x: 0,
@@ -50,7 +50,7 @@ function draw() {
     for (var i = 0; i < dots.length; i++) {
         var dotI = dots[i];
         ctx.moveTo(dotI.x, dotI.y);
-        if (distance(mouse, dotI) < 150) {
+        if (distance(mouse, dotI) < 100) {
             ctx.lineTo(mouse.x, mouse.y)
             ctx.moveTo(dotI.x, dotI.y)
         };
@@ -58,12 +58,13 @@ function draw() {
             var dotII = dots[j];
             if (distance(dotI, dotII) < 150 && distance(dotI, dotII) != 0) {
                 ctx.lineTo(dotII.x, dotII.y);
+                ctx.moveTo(dotI.x, dotI.y)
             }
         }
     }
 
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "#303";
+    ctx.strokeStyle = "#404";
     ctx.stroke();
 }
 
