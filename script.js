@@ -7,8 +7,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var dots = [],
-    FPS = 25,
-    dotsNum = 2,
+    FPS = 60,
+    dotsNum = 60,
     dotSpeed = 50
     mouse = {
         x: 0,
@@ -20,6 +20,7 @@ for (var i = 0; i < dotsNum; i++) {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         // radius: Math.random() * 1 + 1,
+        color: "#" + Math.floor(Math.random()*16777215).toString(16),
         radius: 2,
         vx: Math.floor(Math.random() * dotSpeed) - dotSpeed/2,
         vy: Math.floor(Math.random() * dotSpeed) - dotSpeed/2
@@ -38,11 +39,10 @@ function draw() {
     for (var i = 0; i < dots.length; i++) {
         var d = dots[i]; // Taking dots from the list
 
-        ctx.fillStyle = "#fff";
+        ctx.fillStyle = d.color;
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.radius, 0, 2 * Math.PI)
         ctx.fill();
-        ctx.fillStyle = 'black';
         ctx.stroke();
     }
 
@@ -50,7 +50,7 @@ function draw() {
     for (var i = 0; i < dots.length; i++) {
         var dotI = dots[i];
         ctx.moveTo(dotI.x, dotI.y);
-        if (distance(mouse, dotI) < 100) {
+        if (distance(mouse, dotI) < 150) {
             ctx.lineTo(mouse.x, mouse.y)
             ctx.moveTo(dotI.x, dotI.y)
         };
