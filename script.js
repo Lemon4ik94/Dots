@@ -1,6 +1,8 @@
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext('2d');
 
+
+ctx.translate(0.5, 0.5)
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -48,7 +50,10 @@ function draw() {
     for (var i = 0; i < dots.length; i++) {
         var dotI = dots[i];
         ctx.moveTo(dotI.x, dotI.y);
-        if (distance(mouse, dotI) < 150) ctx.lineTo(mouse.x, mouse.y);
+        if (distance(mouse, dotI) < 150) {
+            ctx.lineTo(mouse.x, mouse.y)
+            ctx.moveTo(dotI.x, dotI.y)
+        };
         for (var j = 0; j < dots.length; j++) {
             var dotII = dots[j];
             if (distance(dotI, dotII) < 150 && distance(dotI, dotII) != 0) {
@@ -57,7 +62,7 @@ function draw() {
         }
     }
 
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 2;
     ctx.strokeStyle = "#303";
     ctx.stroke();
 }
