@@ -6,6 +6,8 @@ ctx.translate(0.5, 0.5)
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+var blocks = document.getElementsByClassName("touchable");
+
 var dots = [],
     FPS = 60,
     dotsNum = 60,
@@ -92,6 +94,10 @@ function update() {
         if (d.x < 0 || d.x > canvas.width) d.vx = -d.vx;
         if (d.y < 0 || d.y > canvas.height) d.vy = -d.vy;
     }
+}
+
+function checkTouch() {
+
 }
 
 canvas.addEventListener('mousemove', function(e){
