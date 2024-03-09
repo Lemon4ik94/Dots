@@ -22,8 +22,8 @@ for (var i = 0; i < dotsNum; i++) {
     dots.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        // radius: Math.random() * 1 + 1,
         color: "#" + Math.floor(Math.random()*16777215).toString(16),
+        // radius: Math.random() * 1 + 1,
         radius: 2,
         vx: Math.floor(Math.random() * dotSpeed) - dotSpeed/2,
         vy: Math.floor(Math.random() * dotSpeed) - dotSpeed/2
@@ -95,8 +95,8 @@ function update() {
         if (d.x < 0 || d.x > canvas.width) d.vx = -d.vx;
         if (d.y < 0 || d.y > canvas.height) d.vy = -d.vy;
 
-        if ((d.y < block.bottom && d.y > block.top) && (d.x > block.left - 1 && d.x < block.right + 1) || (d.x > block.right - 1 && d.x < block.left + 1)) d.vx = -d.vx;
-        if ((d.x < block.right && d.x > block.left) && (d.y > block.top - 1 && d.y < block.bottom + 1) || (d.y > block.bottom - 1 && d.y < block.top + 1)) d.vy = -d.vy;
+        if ((d.y < block.bottom && d.y > block.top) && (d.x > block.left - d.radius && d.x < block.right + d.radius) || (d.x > block.right - d.radius && d.x < block.left + d.radius)) d.vx = -d.vx;
+        if ((d.x < block.right && d.x > block.left) && (d.y > block.top - d.radius && d.y < block.bottom + d.radius) || (d.y > block.bottom - d.radius && d.y < block.top + d.radius)) d.vy = -d.vy;
     }
 }
 
