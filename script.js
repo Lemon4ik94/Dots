@@ -7,6 +7,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var blocks = document.getElementsByClassName("touchable");
+var block = blocks[0].getBoundingClientRect();
 
 var dots = [],
     FPS = 60,
@@ -93,11 +94,10 @@ function update() {
 
         if (d.x < 0 || d.x > canvas.width) d.vx = -d.vx;
         if (d.y < 0 || d.y > canvas.height) d.vy = -d.vy;
+
+        if ((d.y < block.bottom && d.y > block.top) && (d.x > block.left - 1 && d.x < block.right + 1) || (d.x > block.right - 1 && d.x < block.left + 1)) d.vx = -d.vx;
+        if ((d.x < block.right && d.x > block.left) && (d.y > block.top - 1 && d.y < block.bottom + 1) || (d.y > block.bottom - 1 && d.y < block.top + 1)) d.vy = -d.vy;
     }
-}
-
-function checkTouch() {
-
 }
 
 canvas.addEventListener('mousemove', function(e){
