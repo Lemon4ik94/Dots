@@ -6,8 +6,7 @@ ctx.translate(0.5, 0.5)
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var blocks = document.getElementsByClassName("touchable");
-var block = blocks[0].getBoundingClientRect();
+var blocks = (document.getElementsByClassName("touchable"));
 
 var dots = [],
     FPS = 60,
@@ -95,8 +94,31 @@ function update() {
         if (d.x < 0 || d.x > canvas.width) d.vx = -d.vx;
         if (d.y < 0 || d.y > canvas.height) d.vy = -d.vy;
 
-        if ((d.y < block.bottom && d.y > block.top) && (d.x > block.left - d.radius && d.x < block.right + d.radius) || (d.x > block.right - d.radius && d.x < block.left + d.radius)) d.vx = -d.vx;
-        if ((d.x < block.right && d.x > block.left) && (d.y > block.top - d.radius && d.y < block.bottom + d.radius) || (d.y > block.bottom - d.radius && d.y < block.top + d.radius)) d.vy = -d.vy;
+        for (var block of blocks) {
+            block = block.getBoundingClientRect()
+            if ((d.y < block.bottom && d.y > block.top) && (d.x > block.left - d.radius && d.x < block.right + d.radius) || (d.x > block.right - d.radius && d.x < block.left + d.radius)) d.vx = -d.vx;
+            if ((d.x < block.right && d.x > block.left) && (d.y > block.top - d.radius && d.y < block.bottom + d.radius) || (d.y > block.bottom - d.radius && d.y < block.top + d.radius)) d.vy = -d.vy;
+        };
+    }
+}
+
+function isInBlock() {
+    for (let block of blocks) {
+        block = block.getBoundingClientRect();
+
+        console.log(dots, block)
+        dots = dots.filter(d => !(d.x > block.left && d.x < block.right && d.y > block.top && d.y < block.bottom))
+
+        // for (d of dots) {
+        //     console.log(d)
+
+        //     if (d.x > block.left && d.x < block.right && d.y > block.top && d.y < block.bottom) {
+        //         console.log(`x = ${d.x}, y = ${d.y}, left = ${block.left}, right = ${block.right}`);
+        //         delete dots[dots.indexOf(d)];
+        //     }
+
+        // }
+
     }
 }
 
@@ -111,5 +133,6 @@ function tick() {
     requestAnimationFrame(tick);
 }
 
+isInBlock()
 tick()
-// console.log(dots)
+console.log(dots)
